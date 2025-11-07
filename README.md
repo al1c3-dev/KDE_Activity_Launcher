@@ -1,8 +1,8 @@
 # KDE Activity Launcher
-KDE Activity Launcher is a simple tool for managing KDE Plasma Activities from the command line or via custom shortcuts. While Plasma’s native Activities feature exists, this launcher makes it easy to auto-launch and tile different workflows — e.g., “Work” activity with IDE, firefox and email open.
+KDE Activity Launcher is a simple tool for managing KDE Plasma Activities from the command line. While Plasma’s native Activities feature exists, this launcher makes it easy to auto-launch and tile different workflows — e.g., “Work” activity with IDE, firefox and email open.
 
 ## Features
-- Quickly list existing activities.
+- Quickly list existing activities UUIDs.
 - Launch programs on a specific activity by name.
 - Supports tiling between different activities with [polonium](https://github.com/zeroxoneafour/polonium)
 - Configure custom mappings in a `config.json` for user-friendly names.
@@ -57,7 +57,7 @@ qdbus org.kde.ActivityManager /ActivityManager/Activities org.kde.ActivityManage
 Initializes the activity launcher.
 
 - **Parameters:**
-  - `targets` (`dict`): Maps activity names or UUIDs to a tuple of process lists and tiler state.  
+  - `targets` (`dict`): Maps activity names to a tuple of process lists and tiler state.  
     Example: `{ "Work": (["firefox", "code"], True) }`
 
 - **Behavior:**
