@@ -1,8 +1,5 @@
 # KDE Activity Launcher
-A lightweight Python/Qt script to launch and switch KDE Plasma Activities easily.
-
-## About
-KDE Activity Launcher is a simple tool for managing KDE Plasma Activities from the command line or via custom shortcuts. While Plasma’s native Activities feature exists, this launcher makes it easy to script or hot-key different workflows — e.g., switch to a “Work” activity, “Gaming” activity, or “Presentation” activity with one command.
+KDE Activity Launcher is a simple tool for managing KDE Plasma Activities from the command line or via custom shortcuts. While Plasma’s native Activities feature exists, this launcher makes it easy to auto-launch and tile different workflows — e.g., “Work” activity with IDE, firefox and email open.
 
 ## Features
 - Quickly list existing activities.
@@ -18,14 +15,32 @@ KDE Activity Launcher is a simple tool for managing KDE Plasma Activities from t
 git clone https://github.com/al1c3-dev/KDE_Activity_Launcher.git
 cd KDE_Activity_Launcher
 
-# Optional: set up Python virtual environment
-python3 -m venv venv
-source venv/bin/activate
-
 # From the directory containing setup.py
 python3 setup.py install
+
 ```
 Directions for installing polonium can be found [here](https://github.com/zeroxoneafour/polonium)
+
+
+## Troubleshooting
+
+### DBus Not Responding
+Check if the Activity Manager is available:
+```bash
+qdbus org.kde.ActivityManager /ActivityManager
+```
+
+If not, restart the Plasma shell:
+```bash
+kquitapp6 plasmashell && kstart6 plasmashell
+```
+
+### No UUID Returned
+Ensure that the Activity name is exact (case-sensitive) and exists in:
+```bash
+qdbus org.kde.ActivityManager /ActivityManager/Activities org.kde.ActivityManager.Activities
+```
+
 
 
 
@@ -36,9 +51,9 @@ Directions for installing polonium can be found [here](https://github.com/zeroxo
 `KDEActivityLauncher` manages KDE Plasma activities by launching configured processes and toggling a tiling window manager when activities change.
 
 
-## Methods
+### Methods
 
-### `__init__(self, targets)`
+#### `__init__(self, targets)`
 Initializes the activity launcher.
 
 - **Parameters:**
@@ -52,7 +67,7 @@ Initializes the activity launcher.
 
 ---
 
-### `set_tiler(enabled: bool)`
+#### `set_tiler(enabled: bool)`
 Toggles the tiling window manager state using an external script.
 
 - **Parameters:**
@@ -63,7 +78,7 @@ Toggles the tiling window manager state using an external script.
 
 ---
 
-### `read_activities(self, targets)`
+#### `read_activities(self, targets)`
 Converts activity names to UUIDs and returns a dictionary for internal use.
 
 - **Parameters:**
@@ -74,7 +89,7 @@ Converts activity names to UUIDs and returns a dictionary for internal use.
 
 ---
 
-### `get_activity_id_by_name(self, target_name: str) -> str | None`
+#### `get_activity_id_by_name(self, target_name: str) -> str | None`
 Retrieves the UUID for a KDE activity by name.
 
 - **Parameters:**
@@ -85,7 +100,7 @@ Retrieves the UUID for a KDE activity by name.
 
 ---
 
-### `get_activity(self, activity_id)`
+#### `get_activity(self, activity_id)`
 Gets the configuration for a specific activity.
 
 - **Parameters:**
@@ -96,7 +111,7 @@ Gets the configuration for a specific activity.
 
 ---
 
-### `on_activity_changed(self, new_activity)`
+#### `on_activity_changed(self, new_activity)`
 Callback invoked when the current KDE activity changes.
 
 - **Parameters:**
@@ -109,7 +124,7 @@ Callback invoked when the current KDE activity changes.
 
 ---
 
-### `cleanup(self, *args)`
+#### `cleanup(self, *args)`
 Terminates all running subprocesses and exits the program.
 
 - **Parameters:**
